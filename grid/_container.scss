@@ -1,0 +1,86 @@
+/*------------------------------------*\
+    $CONTAINER_FUNCTIONS
+\*------------------------------------*/
+
+
+/**
+ * Mixin to generate the step container
+ */
+@mixin container {
+    @include clearfix;
+    /**
+     * Configure the margin based on container alignment
+     */
+    @if $left-layout {
+        margin: 0;
+    } @else {
+        margin: 0 auto;
+    }
+
+    /**
+     * Set a base container size.
+     * This will be used by default until the breakpoint smaller than the
+     * container size.
+     */
+    width: $container-size;
+
+    /**
+     * Generate media queries for each breakpoint.
+     * This will loop through each breakpoint that the user defined.
+     * If the breakpoint + outside margins is smaller than the original
+     * container size, it will generate a media query to resize the container
+     * to the breakpoint size.
+     */
+    @each $breakpoint in $breakpoints {
+
+        @if $container-size > $breakpoint {
+
+            @if $breakpoint == nth($breakpoints, 1) {
+                /**
+                 * Media query syntax for the first item in the breakpoint list.
+                 * This one probably won't be used because your first breakpoint
+                 * shouldn't be smaller than the grid size.
+                 */
+
+                @media (min-width: $breakpoint + $outside-margin) {
+                  width: $breakpoint;
+                }
+
+            } @else if $breakpoint == nth($breakpoints, length($breakpoints)) {
+                /**
+                 * Media query syntax for the last breakpoint
+                 * Start by grabbing the previous breakpoint value
+                 * Then the media query will be either the breakpoint,
+                 * or if a fluid value is set, it'll become fluid.
+                 */
+                $last-breakpoint-position: index($breakpoints, $breakpoint) - 1;    // Should probably refactor to a function
+                $last-breakpoint: nth($breakpoints, $last-breakpoint-position);
+
+                @media (min-width: $breakpoint + $outside-margin) and (max-width: $last-breakpoint + $outside-margin) {
+                    width: $breakpoint;
+                }
+
+                @media (max-width: $breakpoint + $outside-margin) {
+                  @if $breakpoint == $fluid-breakpoint {
+                    width: auto;
+                    margin: 0 $outside-margin;
+                  } @else {
+                    width: $breakpoint;
+                  }
+                }
+
+            } @else {
+                /**
+                 * The normal breakpoints in the middle
+                 */
+                $last-breakpoint-position: index($breakpoints, $breakpoint) - 1;
+                $last-breakpoint: nth($breakpoints, $last-breakpoint-position);
+
+                @media (min-width: $breakpoint + $outside-margin) and (max-width: $last-breakpoint + $outside-margin) {
+                  width: $breakpoint;
+                }
+
+            }
+        }
+    }
+}

@@ -1,0 +1,43 @@
+/*------------------------------------*\
+    $STEP_GRID
+\*------------------------------------*/
+/**
+ * This is a breakpoint-driven responsive grid framework.
+ * Only use this in rare situations where you need known column sizes
+ */
+
+
+/**
+ * Variables for your grid
+ * $grid-columns: The number of columns in your grid
+ * $grid-column-width: The width of each column
+ * $grid-margin-width: The margins between each column
+ * $left-layout: Set to true to left align your grid, false to center it
+ *
+ * $breakpoints: A comma delimited list of pixel values you would like the grid to snap at
+ * $fluid-breakpoint: The breakpoint where the container should go to 100% width. Set to 0 for none.
+ * $outside-margin: If you'd like your grid to snap with some margin and have margin on the fluid breakpoint
+ */
+$grid-columns: 12;
+$grid-column-width: 70px;
+$grid-margin-width: 30px;
+$left-layout: true;
+
+$breakpoints: 1200px, 960px, 768px, 480px;
+$fluid-breakpoint: 480px;
+$outside-margin: 0;
+
+
+/**
+ * Import our Sass files
+ */
+@import "grid/functions";
+@import "grid/container";
+@import "grid/columns";
+
+
+/**
+ * Optional: Generate presentational classes for your grid (i.e., .container, .span1, .span2, etc.)
+ * You probably shouldn't use this either.
+ */
+// @include step-grid;

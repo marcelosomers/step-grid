@@ -1,0 +1,47 @@
+/*------------------------------------*\
+    $GRID_COLUMNS
+\*------------------------------------*/
+/**
+ * A set of mixins to generate a column
+ */
+
+
+/**
+ * Column-base generates the base styles for a column.
+ * It probably shouldn't be used on it's own.
+ */
+@mixin column-base($last: false) {
+    float: left;
+    display: inline;
+
+    @if $last {
+        @include last;
+    } @else {
+        margin-right: $margin-percent;
+    }
+    * html & {
+        overflow-x: hidden;
+    }
+}
+
+
+/**
+ * Sets the the last column to not have a right margin
+ */
+@mixin last {
+    margin-right: 0;
+}
+
+
+/**
+ * The real column mixin that will generate everything needed for the column
+ */
+@mixin column($n, $last: false) {
+    @include column-base($last);
+    width: $column-percent * $n + $margin-percent * ($n - 1);
+    @include clearfix;
+
+    @media (max-width: $fluid-breakpoint) {
+        width: 100%;
+    }
+}

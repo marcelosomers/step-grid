@@ -1,0 +1,49 @@
+/*------------------------------------*\
+    $GRID_FUNCTIONS
+\*------------------------------------*/
+
+/**
+ * Generate the container size
+ */
+$container-size: $grid-column-width * $grid-columns + $grid-margin-width * ($grid-columns - 1);
+
+
+/**
+ * Convert the grid sizing to percentages
+ */
+$column-percent: percentage($grid-column-width / $container-size);
+$margin-percent: percentage($grid-margin-width / $container-size);
+
+
+/**
+ * Clearfix
+ */
+@mixin clearfix {
+    &:after{
+        content:"";
+        display:table;
+        clear:both;
+    }
+}
+
+
+/**
+ * Generate Presentational Classes
+ * The use of this is discouraged.
+ */
+@mixin step-grid {
+    .container {
+        @include container;
+    }
+
+    .last {
+        @include last;
+    }
+
+    @for $i from 1 through $grid-columns {
+        .span#{$i} {
+            @include column($i);
+            // height: 50px;
+        }
+    }
+}
