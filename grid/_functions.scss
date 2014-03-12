@@ -36,14 +36,19 @@ $margin-percent: percentage($grid-margin-width / $container-size);
         @include container;
     }
 
+    @for $i from 1 through $grid-columns {
+        .span#{$i} {
+            @include column($i);
+        }
+    }
+
     .last {
         @include last;
     }
 
-    @for $i from 1 through $grid-columns {
-        .span#{$i} {
-            @include column($i);
-            // height: 50px;
+    @for $i from 1 through $grid-columns - 1 {
+        .push#{$i} {
+            @include push($i);
         }
     }
 }
