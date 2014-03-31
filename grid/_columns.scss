@@ -53,3 +53,11 @@
 @mixin push($n) {
     margin-left: $n * $grid-column-width + ($n - 1) * $grid-margin-width;
 }
+
+
+/**
+ * Makes rows for a group of columns
+ */
+@mixin row() {
+    @include clearfix;
+}

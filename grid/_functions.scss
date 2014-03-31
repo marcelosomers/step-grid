@@ -36,6 +36,10 @@ $margin-percent: percentage($grid-margin-width / $container-size);
         @include container;
     }
 
+    .row {
+        @include row;
+    }
+
     @for $i from 1 through $grid-columns {
         .span#{$i} {
             @include column($i);
